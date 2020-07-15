@@ -8,21 +8,25 @@ class MyTestCase(unittest.TestCase):
         self.Customer = Customer(1001, 'Klein', 'Kelly', '319-333-8898')
 
     def test_customer_cust_id__passes(self):
-        with self.assertEqual(Customer(1001, 'Klein', 'Kelly', '319-333-8898'),
-                              Customer):
-            Customer(1001, 'Klein', 'Kelly', '319-333-8898')
+        cust1 = Customer(1001, 'Klein', 'Kelly', '319-333-8898')
+        self.assertEqual(cust1.cid, 1001)
+
     """
     def test_customer_lname_passes(self):
-        with self.assertRaises(Exception):
-            Customer(1001, 'Klein', 'Kelly', '319-333-8898')
+        cust1 = Customer(1001, 'Klein', 'Kelly', '319-333-8898')
+        self.assertEqual(cust1.last_name, 'Klein')
 
     def test_customer_fname_passes(self):
-        with self.assertRaises(Exception):
-            Customer(1001, 'Klein', 'Kelly', '319-333-8898')
+        cust1 = Customer(1001, 'Klein', 'Kelly', '319-333-8898')
+        self.assertEqual(cust1.first_name, 'Kelly')
 
     def test_customer_phone_passes(self):
-        with self.assertRaises(Exception):
-            Customer(1001, 'Klein', 'Kelly', '319-333-8898')
+        cust1 = Customer(1001, 'Klein', 'Kelly', '319-333-8898')
+        self.assertEqual(cust1.phone, '319-333-8898')
+    
+    def test_display_passes(self):
+        expected_string_display = "1001 Kelly Klein 319-333-8898"
+        self.assertEqual(cust1.display(), expected_string_display)
 """
 
     def test_customer_cust_id__exception(self):

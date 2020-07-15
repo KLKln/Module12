@@ -31,23 +31,25 @@ use reST style.
     :return:
 """
         try:
-            if isinstance(customer_id, int) and 1000 <= customer_id <= 9999:
+            while isinstance(customer_id, int) and 1000 <= customer_id <= 9999:
                 self.cid = customer_id
+                break
         except InvalidCustomerIdException:
             raise InvalidCustomerIdException("must be a whole number between 1000 and 9999")
         # customer_id: int: required
         try:
-            if lname.isalpha():
+            while lname.isalpha():
                 self.last_name = lname
+                break
         except InvalidNameException:
             raise InvalidNameException("Alphabet characters only!")
         # last_name: string: required
         try:
-            if fname.isalpha():
+            while fname.isalpha():
                 self.first_name = fname
+                break
         except InvalidNameException:
             raise InvalidNameException("Alphabet characters only!")
-            # first_name: string: required
         try:
             for i, c in enumerate(phone):
                 if i in [3, 7]:
@@ -67,13 +69,29 @@ use reST style.
         return repr(str(self.cid) + self.first_name + self.last_name + self.phone)
 
     def display(self):
-        print((str(self.cid) + ' ' + str(self.first_name) + ' ' + str(self.last_name)) + ' ' + self.phone)
+        # I tried adding try/catch to display hoping it would trigger 'raise' here but
+        # I must be doing something wrong with my raise because it's not raising
+        # an error, it just says:  "AttributeError: 'Customer' object has no attribute 'cid'"
+        # this is obviously because my while statement isn't fulfilled, I just don't know
+        # why
+        try:
+            print(str(self.cid))
+        except InvalidCustomerIdException:
+            raise InvalidCustomerIdException("must be a whole number between 1000 and 9999")
+        try:
+            print(str(self.first_name) + ' ' + str(self.last_name))
+        except InvalidNameException:
+            raise InvalidNameException("Alphabet characters only!")
+        try:
+            print(str(self.phone))
+        except InvalidPhoneNumberFormat:
+            raise InvalidPhoneNumberFormat('phone format "xxx-xxx-xxxx" only')
 
 
 if __name__ == '__main__':
     gerta = Customer(1000, 'Haymaker', 'Gerta', '999-765-4321')
     gerta.display()
-    hibby = Customer(450, 'Shibby', 'Hibby', '319-567-8900')
+    hibby = Customer(999, 'Shibby', 'Hibby', '319-567-8900')
     hibby.display()
-    pip = Customer(1000, 1000, 'Pip', '000-908-6543')
+    pip = Customer(1000, '1000', 'Pip', 'phone')
     pip.display()
